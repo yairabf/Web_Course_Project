@@ -6,15 +6,6 @@ const server = Hapi.server({
     host: 'localhost'
 });
 
-// server.route({
-//     method: 'GET',
-//     path: '/{name}',
-//     handler: (request, h) => {
-//         request.logger.info('In handler %s', request.path);
-//         return 'Hello, ' + encodeURIComponent(request.params.name) + '!';
-//     }
-// });
-
 
 const init = async() =>{
     await server.register(require('inert'));
@@ -39,9 +30,7 @@ const init = async() =>{
         method: ['PUT', 'POST'],
         path: '/insertNum',
         handler: function (request, h) {
-            let x = request.payload.num;
-            console.log(x);
-            return x;
+            return calculateNextState(request.payload.state, request.payload.num);
         }
     });
 

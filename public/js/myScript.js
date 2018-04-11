@@ -1,17 +1,22 @@
-var stageOne = 111111;
-var stageTwo = 0;
+var currentState = {num: null};
+var stageTwo = {num: null};
+var cuerrntStage = 1;
 
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
-function insertNum() {
 
+
+function insertNum() {
     var number = $('#num').val();
     var state = $('#stage').val();
-    $.post("/insertNum", {num: number, state: state},
+    $.post("/insertNum", {state: currentState,num: number},
         function(data, status){
             if(isNumber(number)){
-                stageOne = data;
+                if(cuerrntStage.valueOf() === 1)
+                    stageOne = data;
+                else
+                    stageTwo = data;
             }
         });
 }
