@@ -1,6 +1,8 @@
-var currentState = {num: null};
-var stageTwo = {num: null};
-var cuerrntStage = 1;
+var state = {
+    "now_been_calculated" : null,
+    "operation" : "",
+    "saved_num" : null
+};
 
 function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -8,15 +10,11 @@ function isNumber(n) {
 
 
 function insertNum() {
-    var number = $('#num').val();
-    var state = $('#stage').val();
-    $.post("/insertNum", {state: currentState,num: number},
+    console.log(JSON.stringify(state));
+    let num = $('#num').val();
+    $.post("/insertNum", {_state: JSON.stringify(state), num: num},
         function(data, status){
-            if(isNumber(number)){
-                if(cuerrntStage.valueOf() === 1)
-                    stageOne = data;
-                else
-                    stageTwo = data;
-            }
+            console.log(data);
+            state = data;
         });
 }

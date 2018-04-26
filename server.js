@@ -30,7 +30,10 @@ const init = async() =>{
         method: ['PUT', 'POST'],
         path: '/insertNum',
         handler: function (request, h) {
-            return calculateNextState(request.payload.state, request.payload.num);
+            console.log(request.payload._state);
+            console.log(request.payload.num);
+            let state = JSON.parse(request.payload._state)
+            return calculateNextState(state, request.payload.num);
         }
     });
 
@@ -59,11 +62,35 @@ function isNumber(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-function calculateNextState(stage, nextInput) {
+function calculateNextState(state, nextInput) {
     if(isNumber(nextInput)){
-        stage = stage + nextInput.toString();
+        state.now_been_calculated = state.now_been_calculated * 10 + parseInt(nextInput);
     }
-    return stage;
+    else {
+        if(state.saved_num != null ){
+            calculate(state);
+            state.now_been_calculated = null;
+            state.operation = nextInput;
+        } else {
+            state.saved_num = state.now_been_calculated;
+            state.now_been_calculated = null;
+            state.operation = nextInput;
+        }
+    }
+    return state;
 }
 
+function calculate(state){
+    let cal = 0;
+    if(state.operation === '+'){
+        cal = parseInt(state.saved_num) + parseInt(state.now_been_calculated);
+    } else if(state.operation === '-'){
+        cal = parseInt(state.saved_num) - parseInt(state.now_been_calculated);
+    } else if(state.operation === '*'){
+        cal = parseInt(state.saved_num) * parseInt(state.now_been_calculated);
+    } else if(state.operation === '/'){
+        cal = parseInt(state.saved_num) / parseInt(state.now_been_calculated);
+    }
+    state.saved_num = cal.toString();
+}
 init();
