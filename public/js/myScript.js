@@ -1,4 +1,4 @@
-var state = {
+let state = {
     "now_been_calculated" : null,
     "operation" : "",
     "saved_num" : null
