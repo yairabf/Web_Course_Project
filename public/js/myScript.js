@@ -4,10 +4,6 @@ let state = {
     "saved_num" : null
 };
 
-function isNumber(n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
 
 function insertNum() {
     console.log(JSON.stringify(state));
@@ -16,5 +12,10 @@ function insertNum() {
         function(data, status){
             console.log(data);
             state = data;
+            if(data.saved_num === null){
+                document.getElementById("ans").innerHTML = data.now_been_calculated;
+            }else {
+                document.getElementById("ans").innerHTML = data.saved_num;
+            }
         });
 }
