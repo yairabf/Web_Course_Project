@@ -22,6 +22,13 @@ const init = async() =>{
         method: ['PUT', 'POST'],
         path: '/calculate',
         handler: function (request, h) {
+            let val = request.payload.input;
+            let allowed = "*/=+-";
+            // input check
+            if (isNaN(val) && allowed.indexOf(val) == -1) {
+                h.json({display: "error"});
+                return;
+            }
             console.log(request.payload.calculatorState);
             console.log(request.payload.input);
             return calculateNextState(request.payload.calculatorState, request.payload.input);
