@@ -1,4 +1,4 @@
-FROM node:10.5.0
+FROM node:8
 
 WORKDIR /Web_Course_Project
 
@@ -9,4 +9,5 @@ RUN npm install
 COPY . .
 
 EXPOSE 8000
+
 CMD ["npm", "start"]

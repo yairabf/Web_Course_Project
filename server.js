@@ -3,7 +3,7 @@ const calculateNextState = require('./src/calculateNextState');
 const Hapi = require('hapi');
 const server = Hapi.server({
     port: 8000,
-    host: 'localhost'
+    host: '0.0.0.0'
 });
 
 
@@ -17,6 +17,13 @@ const init = async() =>{
         }
     });
 
+    server.route({
+        method: 'GET',
+        path: '/',
+        handler: function () {
+            return "hello from your mother";
+        }
+    });
 
     server.route({
         method: ['PUT', 'POST'],
