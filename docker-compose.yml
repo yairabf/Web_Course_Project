@@ -13,7 +13,7 @@ services:
       - FRONTEND_ADDRESS=frontend:80
       - CALCULATOR_ADDRESS=calculator:8000
     ports:
-      - "8080:80"
+      - "8000:80"
     depends_on:
       - redis-db
       - calculator
