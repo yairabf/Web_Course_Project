@@ -8,7 +8,7 @@ services:
     image: "webdevtoolsandtech/currency-backend"
     environment:
       - REDIS_ADDRESS=redis-db:6379
-      - SESSION_SECRET="lalala"
+      - SESSION_SECRET="hello_from_your_mother"
       - USER_SERVICE_ADDRESS=user-service:80
       - FRONTEND_ADDRESS=frontend:80
       - CALCULATOR_ADDRESS=calculator:8000
